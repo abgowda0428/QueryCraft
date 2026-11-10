@@ -3,28 +3,21 @@
 **Date:** 2026-11-10
 
 ## Topics Covered
-1. What SQL / a relational database is
-2. Creating and switching databases
-3. Creating tables, choosing data types, constraints (`PRIMARY KEY`, `NOT NULL`, `UNIQUE`, `DEFAULT`, `AUTO_INCREMENT`)
-4. Inserting rows with `INSERT INTO`
-5. Reading data with `SELECT`, column aliases, `DISTINCT`, and simple expressions
+1. Listing, creating, selecting and switching databases (`SHOW DATABASES`, `CREATE DATABASE`, `SELECT DATABASE()`, `USE`)
+2. Comments in MySQL: `--`, `#` and `/* ... */`
+3. Creating a table with constraints (`NOT NULL`, `UNIQUE`, `DEFAULT`)
+4. Inspecting tables (`DESCRIBE`, `SHOW TABLES`)
+5. Inserting data: without a column list vs. with a column list
+6. Reading data with `SELECT *`
+7. Deleting with `DROP DATABASE` / `DROP TABLE`
 
-## Scripts
+## Script
 | File | What it does |
 |------|--------------|
-| [01_databases_and_tables.sql](01_databases_and_tables.sql) | Create DB, create `students` table, inspect it |
-| [02_insert_data.sql](02_insert_data.sql) | Insert sample rows (single + multi-row) |
-| [03_basic_select.sql](03_basic_select.sql) | SELECT, aliases, DISTINCT, expressions |
-
-Run in order: `01` → `02` → `03`.
+| [database&tables.sql](database&tables.sql) | Creates the `WMS` database and `items` table, inserts rows, selects, drops |
 
 ## Key Takeaways
-- SQL keywords are case-insensitive, but writing them in UPPERCASE keeps queries readable.
-- Every statement ends with `;`.
-- `VARCHAR(n)` for text, `DECIMAL(p,s)` for exact numbers like marks or money — never `FLOAT` for money.
-- `AUTO_INCREMENT` + `PRIMARY KEY` gives each row a unique id automatically.
-- Avoid `SELECT *` in real queries — name the columns you need.
-
-## Questions / To Revisit
-- Difference between `DATETIME` and `TIMESTAMP` (time zones).
-- When to use `CHAR` vs `VARCHAR`.
+- Avoid special symbols (like `-`) in database names; if you use them you must wrap the name in backticks: `` USE `Abhi-DB`; ``
+- `INSERT INTO table VALUES (...)` without column names needs a value for **every** column.
+- `INSERT INTO table (col1, col2) VALUES (...)` lets skipped columns take their `DEFAULT` value.
+- `DROP` permanently deletes a database or table and its data.

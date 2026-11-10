@@ -34,7 +34,7 @@ Or open the files in MySQL Workbench and execute them.
 
 | Day | Topic | Folder |
 |-----|-------|--------|
-| 01 | MySQL basics: databases, tables, data types, INSERT, SELECT | [day-01-mysql-basics](daily/day-01-mysql-basics) |
+| 01 | MySQL basics: databases, comments, tables, INSERT, SELECT, DROP | [day-01-mysql-basics](daily/day-01-mysql-basics) |
 
 ## 🗺️ Roadmap
 - [x] Databases, tables & data types
