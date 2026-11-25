@@ -48,3 +48,39 @@ SELECT * FROM wms.items; -- to retrive the data from the table without specfying
 
 DROP DATABASE `Abhi-Db`; -- this is used to delete the database in the server.
 DROP TABLE WMS.items ; -- this is used to delete the table in the database.
+
+
+-- set the start value: 
+ALTER TABLE product AUTO_INCREMENT = 1000;
+
+-- see the last generated id with 
+SELECT LAST_INSERT_ID();
+
+-- INSERT IGNORE: skip the duplicate silently
+INSERT IGNORE INTO product (product_id, product_name) VALUES (1, 'Test');
+
+-- ON DUPLICATE KEY UPDATE: insert or update (upsert)
+INSERT INTO product (product_id, product_name, unit_price, stock_qty)
+VALUES (1, 'Hex Bolt M8', 5.00, 600)
+ON DUPLICATE KEY UPDATE
+    unit_price = VALUES(unit_price),
+    stock_qty  = VALUES(stock_qty);
+
+-- Newer methods 
+INSERT INTO product (product_id, product_name, unit_price, stock_qty)
+VALUES (1, 'Hex Bolt M8', 5.00, 600) AS new
+ON DUPLICATE KEY UPDATE
+    unit_price = new.unit_price,
+    stock_qty  = new.stock_qty;
+
+-- With UUID function in the MYSQL
+CREATE TABLE product (
+    product_id   CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    product_name VARCHAR(100) NOT NULL
+);
+
+INSERT INTO product (product_name) VALUES ('Bolt');
+SELECT * FROM product;   -- product_id like 'a3f1c2d4-8b7e-11ef-9c2a-0242ac110002'
+
+-- Gerenete it during the insert Maunal Insert also 
+INSERT INTO product (product_id, product_name) VALUES (UUID(), 'Bolt');
