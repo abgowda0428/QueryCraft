@@ -35,3 +35,30 @@ REVOKE INSERT ON wms_practice.* FROM 'modeler_role';
 
 -- Take the whole role away from one person
 REVOKE 'modeler_role' FROM 'modeler'@'10.0.1.%';
+
+-- Change a password
+ALTER USER 'appuser'@'10.0.1.%' IDENTIFIED BY 'NewPass#2';
+
+-- Force a new password at next login
+ALTER USER 'modeler'@'10.0.1.%' PASSWORD EXPIRE;
+
+-- Lock / unlock an account (e.g. when someone leaves)
+ALTER USER 'db_02'@'10.0.1.%' ACCOUNT LOCK;
+ALTER USER 'db_02'@'10.0.1.%' ACCOUNT UNLOCK;
+
+-- Limit simultaneous connections
+ALTER USER 'appuser'@'10.0.1.%' WITH MAX_USER_CONNECTIONS 20;
+
+-- Require an encrypted connection
+ALTER USER 'appuser'@'10.0.1.%' REQUIRE SSL;
+
+-- Change the default role
+ALTER USER 'modeler'@'10.0.1.%' DEFAULT ROLE 'modeler_role';
+
+-- Verify
+SELECT user, host, account_locked, password_expired
+FROM mysql.user
+WHERE user IN ('appuser', 'modeler', 'db_01', 'db_02');
+
+-- Rename teh user
+RENAME USER 'appuser'@'10.0.1.%' TO 'appuser'@'10.0.2.%';
